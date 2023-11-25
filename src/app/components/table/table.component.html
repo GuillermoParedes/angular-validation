@@ -1,0 +1,50 @@
+<div class="table--container">
+  <div class="table--container_action">
+    <app-search></app-search>
+    <app-button
+      [label]="'Agregar'"
+      className="bg-secondary text-primary text-bold"
+      (click)="handleClickAdd($event)"
+    ></app-button>
+  </div>
+  <div class="table--container_body">
+    <div class="table">
+      <div class="row table__header">
+        <div class="bg-third column justify-content-center " *ngFor="let item of schema" [ngClass]="{'d-none' : item.hidden }">{{ item.label }}</div>
+      </div>
+      <div class="row text-center" *ngFor="let item of data" >
+        <div class="column" *ngFor="let ischema of schema" [ngClass]="{'d-none' : ischema.hidden, 'justify-content-center': ischema.type == 'image' }">
+          <div [ngSwitch]="ischema.type">
+            <div *ngSwitchCase="'image'">
+
+              <img class="logo" [src]="item[ischema.property]" (error)="item[ischema.property] = 'assets/no-image.webp'" alt="Logo">
+
+            </div>
+            <div *ngSwitchCase="'date'">
+
+              <p>{{ item[ischema.property] | date: 'MM/yy/yyyy'}}</p>
+            </div>
+            <div *ngSwitchDefault>
+              <p>{{ item[ischema.property] }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="table--container_pagination">
+    <div>
+      {{ data.length }} Resultados
+    </div>
+
+    <div class="product-table__pagination__arrows">
+      <select  aria-label="Producto por página">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+      </select>
+    </div>
+  </div>
+</div>

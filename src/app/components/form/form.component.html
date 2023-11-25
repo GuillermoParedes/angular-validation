@@ -1,0 +1,22 @@
+<form [formGroup]="formSchema" (ngSubmit)="onSave()" >
+    <div class="container-form bg-white">
+      <a class="container-form__cancel" [href]="returnToBack">
+        <img src="assets/arrow-left.svg" alt="close" />
+        Cancelar
+      </a>
+      <p class="container-form__title">
+        {{ title }}
+      </p>
+      <div class="container-form__body">
+        <ng-container *ngFor="let item of schema">
+          <app-input [form]="formSchema" [formName]="item.property" [label]="item.label" ></app-input>
+        </ng-container>
+      </div>
+      <div class="container-form__actions">
+        <app-button [label]="'Reset'"  (click)="resetForm()" className="bg-secondary" ></app-button>
+        <app-button [label]="'Send'" [type]="'submit'"  className="bg-primary text-white" [disabled]="!formSchema.valid"></app-button>
+      </div>
+    </div>
+  </form>
+  
+  
